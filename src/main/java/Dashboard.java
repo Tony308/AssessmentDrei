@@ -1,4 +1,5 @@
 import com.google.common.base.Function;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tab;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -29,17 +30,21 @@ public class Dashboard {
     @FindBy(id = "username")
     private WebElement username;
 
-    @FindBy(id = "systemUserSaveBtn")
+    @FindBy(xpath = "//*[@id=\"systemUserSaveBtn\"]")
     private WebElement savebtn;
 
     @FindBy(xpath = "//*[@id=\"employee_name_quick_filter_employee_list_value\"]")
     private WebElement searchEmployee;
 
-    @FindBy(xpath = "//*[@id=\"employeeListTable\"]/tbody/tr/td[5]")
+    @FindBy(className = "cursor-pointer")
     private WebElement addedEmployee;
 
-    @FindBy(xpath = "//*[@id=\"pim.navbar.employeeName\"]")
-    private WebElement navbarEmployeeName;
+    @FindBy(id = "first_name")
+    private WebElement personalForename;
+
+    @FindBy(id = "last_name")
+    private WebElement personalSurname;
+
 
     public void clickEmployeeTab(WebDriver driver) {
         WebElement myDynamicElement = (new WebDriverWait(driver, 15))
@@ -62,8 +67,9 @@ public class Dashboard {
         action.sendKeys(Keys.TAB, "middle", Keys.TAB, "Rayman").perform();
         action.sendKeys(Keys.TAB, Keys.TAB).perform();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        action.sendKeys("London Office").perform();
+        action.sendKeys("london").perform();
         action.sendKeys(Keys.RETURN).perform();
+
 
     }
 
@@ -73,9 +79,11 @@ public class Dashboard {
 
     public void fillOutLoginDetails(WebDriver driver) {
         Actions action = new Actions(driver);
+
         //Duplicate userNames creates errors and must be at least 5 characters long.
-        username.sendKeys("hella" ,Keys.TAB);
+        username.sendKeys("hellaBut" ,Keys.TAB);
         action.sendKeys("Enabled",Keys.RETURN,Keys.TAB).perform();
+
         //Password must be 8 characters long
         action.sendKeys("rayyanrayman", Keys.TAB, "rayyanrayman",Keys.TAB, "Default ESS",Keys.TAB).perform();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -85,24 +93,20 @@ public class Dashboard {
 
     }
 
-    public void clickSave(WebDriver driver) {
+    public void clickSave() {
+
         savebtn.click();
+    }
+
+    public void searchEmployee(WebDriver driver) {
+
+        searchEmployee.click();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        searchEmployee.sendKeys("rayman", Keys.ENTER);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    public void searchEmployee() {
-
-        searchEmployee.click();
-        searchEmployee.sendKeys("Rayyan", Keys.ENTER);
-
-    }
-
     public void select4Inspection() {
-
-//        addedEmployee.click();
-    }
-
-    public String getUsername() {
-        return navbarEmployeeName.getText();
+        addedEmployee.click();
     }
 }

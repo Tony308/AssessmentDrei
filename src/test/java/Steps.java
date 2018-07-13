@@ -104,28 +104,39 @@ public class Steps {
         test.log(LogStatus.INFO, "Click success.");
         dash.fillOutLoginDetails(driver);
         test.log(LogStatus.INFO,"Filling out login details.");
-
     }
 
     @When("^I click the Save button$")
-    public void i_click_the_Save_button() {
-        dash.clickSave(driver);
+    public void i_click_the_Save_button() throws InterruptedException {
+        Thread.sleep(500);
+        dash.clickSave();
+        Thread.sleep(500);
         test.log(LogStatus.INFO, "Click save.");
+
     }
 
     @Then("^I can search for the Employee I have just created$")
-    public void i_can_search_for_the_Employee_I_have_just_created(){
-        dash.searchEmployee();
+    public void i_can_search_for_the_Employee_I_have_just_created() throws InterruptedException {
+        Thread.sleep(500);
+        dash.searchEmployee(driver);
+        Thread.sleep(500);
         test.log(LogStatus.INFO, "Searching for Rayyan");
-
     }
 
     @Then("^select them for inspection$")
-    public void select_them_for_inspection() {
+    public void select_them_for_inspection() throws InterruptedException {
+
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         dash.select4Inspection();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
         test.log(LogStatus.INFO, "Selecting Rayyan for inspection");
-        assertEquals("Rayyan Rayman", dash.getUsername());
+//        assertEquals();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         test.log(LogStatus.PASS, "Passed somehow.");
+
     }
+
+
 
 }
