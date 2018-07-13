@@ -34,7 +34,7 @@ public class Steps {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-        report = new ExtentReports(Constant.filepath+ Constant.report, false);
+        report = new ExtentReports(Constant.filepath+ Constant.report, true);
         test = report.startTest("Administrate an employee");
 
         homepage = PageFactory.initElements(driver, LoginPage.class);
@@ -104,23 +104,20 @@ public class Steps {
         test.log(LogStatus.INFO, "Click success.");
         dash.fillOutLoginDetails(driver);
         test.log(LogStatus.INFO,"Filling out login details.");
+
     }
 
     @When("^I click the Save button$")
     public void i_click_the_Save_button() {
-        dash.clickSave();
-        WebElement verify = driver.findElement(By.xpath("//*[@id=\"addEmployeeButton\"]/i"));
-
-        if (verify.getText().equals("Successfully Saved")) {
-            test.log(LogStatus.PASS, "Employee successfully added.");
-        }
+        dash.clickSave(driver);
+        test.log(LogStatus.INFO, "Click save.");
     }
 
     @Then("^I can search for the Employee I have just created$")
-    public void i_can_search_for_the_Employee_I_have_just_created() throws Throwable {
+    public void i_can_search_for_the_Employee_I_have_just_created(){
         dash.searchEmployee();
         test.log(LogStatus.INFO, "Searching for Rayyan");
-        throw new PendingException();
+
     }
 
     @Then("^select them for inspection$")
@@ -128,6 +125,7 @@ public class Steps {
         dash.select4Inspection();
         test.log(LogStatus.INFO, "Selecting Rayyan for inspection");
         assertEquals("Rayyan Rayman", dash.getUsername());
+        test.log(LogStatus.PASS, "Passed somehow.");
     }
 
 }

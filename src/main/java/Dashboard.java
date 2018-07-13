@@ -29,7 +29,7 @@ public class Dashboard {
     @FindBy(id = "username")
     private WebElement username;
 
-    @FindBy(xpath = "//*[@id=\"systemUserSaveBtn\"]")
+    @FindBy(id = "systemUserSaveBtn")
     private WebElement savebtn;
 
     @FindBy(xpath = "//*[@id=\"employee_name_quick_filter_employee_list_value\"]")
@@ -74,7 +74,7 @@ public class Dashboard {
     public void fillOutLoginDetails(WebDriver driver) {
         Actions action = new Actions(driver);
         //Duplicate userNames creates errors and must be at least 5 characters long.
-        username.sendKeys("hellab" ,Keys.TAB);
+        username.sendKeys("hella" ,Keys.TAB);
         action.sendKeys("Enabled",Keys.RETURN,Keys.TAB).perform();
         //Password must be 8 characters long
         action.sendKeys("rayyanrayman", Keys.TAB, "rayyanrayman",Keys.TAB, "Default ESS",Keys.TAB).perform();
@@ -85,12 +85,13 @@ public class Dashboard {
 
     }
 
-    public void clickSave() {
+    public void clickSave(WebDriver driver) {
         savebtn.click();
-
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     public void searchEmployee() {
+
         searchEmployee.click();
         searchEmployee.sendKeys("Rayyan", Keys.ENTER);
 
@@ -98,7 +99,7 @@ public class Dashboard {
 
     public void select4Inspection() {
 
-        addedEmployee.click();
+//        addedEmployee.click();
     }
 
     public String getUsername() {
