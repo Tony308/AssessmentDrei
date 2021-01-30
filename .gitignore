@@ -1,0 +1,13 @@
+unknown command "vieww" for "gh gist"
+
+Did you mean this?
+	view
+
+Usage:  gh gist <command> [flags]
+
+Available commands:
+  create
+  delete
+  edit
+  list
+  view
